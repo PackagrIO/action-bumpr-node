@@ -1,0 +1,28 @@
+name: 'Node Version Bumpr'
+description: 'Github Action that allows you to bump SemVer version for Node/Javascript repositories'
+inputs:
+  version_bump_type:  # id of input
+    description: 'Bump Version Type (major, minor, patch)'
+    required: true
+    default: 'patch'
+  version_metadata_path:
+    description: 'Path to file containing Version string'
+    required: true
+    default: 'package.json'
+  cwd:
+    description: 'Working Directory'
+    required: false
+    default: ''
+outputs:
+  version: # id of output
+    description: 'Version that was written to files'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    PACKAGR_VERSION_BUMP_TYPE: ${{ inputs.version_bump_type }}
+    PACKAGR_VERSION_METADATA_PATH: ${{ inputs.version_metadata_path }}
+    CUSTOM_WORKING_DIRECTORY: ${{ inputs.cwd }}
+branding:
+  icon: 'chevrons-up'
+  color: 'green'
